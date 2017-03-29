@@ -1,0 +1,39 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: tcshop
+  data:
+    mongodb:
+      uri: mongodb://chebian:123456@192.168.2.253:27017,192.168.2.242:27017/chebian
+  datasource:
+    url: jdbc:mysql://192.168.2.243:3306/chebian
+    username: chebian
+    password: 123456
+    driver-class-name: com.mysql.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+    filters: stat,wall
+    maxActive: 20
+    initialSize: 5
+    minIdle: 3
+    maxWait: 60000
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    maxOpenPreparedStatements: 20
+    validationQuery: select 'x'
+
+mybatis:
+    type-aliases-package: com.chebian.life.om.entity
+    mapper-locations: classpath:mapper/*.xml
+
+pagehelper:
+    helperDialect: mysql
+    reasonable: true
+    supportMethodsArguments: true
+    params: count=countSql
+#debug: true

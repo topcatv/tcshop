@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.chebian.life.om.dao.AreaDao">
+
+    <resultMap id="cbAreaResult" type="com.chebian.life.om.entity.Area">
+        <result property="id" column="id"/>
+        <result property="parentid" column="parentid"/>
+        <result property="parentids" column="parentids"/>
+        <result property="areaname" column="areaname"/>
+        <result property="areatype" column="areatype"/>
+        <result property="prefix" column="prefix"/>
+        <result property="cityletter" column="cityletter"/>
+    </resultMap>
+
+    <!-- 用于select查询公用抽取的列 -->
+    <sql id="commonColumns">
+	    <![CDATA[
+            A.id ,
+        	A.parentid ,
+        	A.parentids ,
+        	A.areaname ,
+        	A.areatype ,
+        	A.prefix ,
+        	A.cityletter
+        ]]>
+	</sql>
+
+    <insert id="insert" parameterType="com.chebian.life.om.entity.Area" useGeneratedKeys="true" keyProperty="id">
+    <![CDATA[
+        INSERT INTO
+        cb_area (
+        	id ,
+        	parentid ,
+        	parentids ,
+        	areaname ,
+        	areatype ,
+        	prefix ,
+        	cityletter 
+        ) VALUES (
+        	#{id:INTEGER} ,
+        	#{parentid:INTEGER} ,
+        	#{parentids:VARCHAR} ,
+        	#{areaname:VARCHAR} ,
+        	#{areatype:CHAR} ,
+        	#{prefix:VARCHAR} ,
+        	#{cityletter:CHAR} 
+        )
+        ]]>
+    </insert>
+
+    <update id="update" parameterType="com.chebian.life.om.entity.Area">
+
+        UPDATE cb_area
+        <set>
+            parentid = #{parentid:INTEGER} ,
+            parentids = #{parentids:VARCHAR} ,
+            areaname = #{areaname:VARCHAR} ,
+            areatype = #{areatype:CHAR} ,
+            prefix = #{prefix:VARCHAR} ,
+            cityletter = #{cityletter:CHAR} ,
+        </set>
+        WHERE
+        id = #{id}
+
+    </update>
+
+    <update id="updateSelective" parameterType="map">
+        UPDATE cb_area
+        <set>
+            <if test="parentid != null">
+                parentid = #{parentid:INTEGER} ,
+            </if>
+            <if test="parentids != null">
+                parentids = #{parentids:VARCHAR} ,
+            </if>
+            <if test="areaname != null">
+                areaname = #{areaname:VARCHAR} ,
+            </if>
+            <if test="areatype != null">
+                areatype = #{areatype:CHAR} ,
+            </if>
+            <if test="prefix != null">
+                prefix = #{prefix:VARCHAR} ,
+            </if>
+            <if test="cityletter != null">
+                cityletter = #{cityletter:CHAR} ,
+            </if>
+        </set>
+        WHERE
+        id = #{id}
+
+    </update>
+
+    <sql id="dynamicWhere">
+        <where>
+            <if test="id != null">
+                AND A.id = #{id:INTEGER}
+            </if>
+            <if test="parentid != null">
+                AND A.parentid = #{parentid:INTEGER}
+            </if>
+            <if test="parentids != null">
+                AND A.parentids = #{parentids:VARCHAR}
+            </if>
+            <if test="areaname != null">
+                AND A.areaname = #{areaname:VARCHAR}
+            </if>
+            <if test="areatype != null">
+                AND A.areatype = #{areatype:CHAR}
+            </if>
+            <if test="prefix != null">
+                AND A.prefix = #{prefix:VARCHAR}
+            </if>
+            <if test="cityletter != null">
+                AND A.cityletter = #{cityletter:CHAR}
+            </if>
+        </where>
+    </sql>
+
+    <delete id="deleteByIds">
+        DELETE FROM cb_area
+        WHERE
+        id
+        IN
+        <foreach close=")" collection="array" index="index" item="item" open="(" separator=",">
+            #{item}
+        </foreach>
+    </delete>
+
+
+    <select id="count" resultType="long">
+        SELECT COUNT(*)
+        FROM cb_area A
+        <include refid="dynamicWhere"/>
+    </select>
+
+    <select id="query" parameterType="map" resultMap="cbAreaResult">
+        SELECT
+        <include refid="commonColumns"/>
+        FROM cb_area A
+        <include refid="dynamicWhere"/>
+        <trim prefix="ORDER BY">
+            <if test="sortColumns != null">
+                ${sortColumns} ,
+            </if>
+            id
+        </trim>
+    </select>
+
+</mapper>
