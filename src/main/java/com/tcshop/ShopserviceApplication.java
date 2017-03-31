@@ -7,7 +7,7 @@ import org.springframework.boot.web.servlet.ServletComponentScan;
 
 @SpringBootApplication
 @ServletComponentScan
-@MapperScan("com.chebian.life.om.dao")
+@MapperScan("com.tcshop.dao")
 public class ShopserviceApplication {
 
 	public static void main(String[] args) {

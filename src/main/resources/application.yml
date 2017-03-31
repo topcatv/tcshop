@@ -1,6 +1,10 @@
 server:
   port: 8080
 
+logging:
+  level:
+    tk.mybatis: TRACE
+
 spring:
   application:
     name: tcshop
@@ -8,8 +12,8 @@ spring:
     mongodb:
       uri: mongodb://chebian:123456@192.168.2.253:27017,192.168.2.242:27017/chebian
   datasource:
-    url: jdbc:mysql://192.168.2.243:3306/chebian
-    username: chebian
+    url: jdbc:mysql://localhost:3306/tcshop
+    username: topcat
     password: 123456
     driver-class-name: com.mysql.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
@@ -30,6 +34,12 @@ spring:
 mybatis:
     type-aliases-package: com.chebian.life.om.entity
     mapper-locations: classpath:mapper/*.xml
+
+mapper:
+  mappers:
+    - com.tcshop.utils.TcMapper
+  not-empty: false
+  identity: MYSQL
 
 pagehelper:
     helperDialect: mysql
