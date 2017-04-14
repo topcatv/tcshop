@@ -1,7 +1,7 @@
 package com.tcshop.service;
 
 import com.github.pagehelper.PageHelper;
-import com.tcshop.utils.TcMapper;
+import com.tcshop.util.BaseMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,7 +11,7 @@ import java.util.List;
 public abstract class BaseService<T> {
 
     @Autowired
-    protected TcMapper<T> mapper;
+    protected BaseMapper<T> mapper;
 
     public int save(T entity){
         return mapper.insert(entity);

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
  * Created by topcat on 2017/4/13.
  */
 @Service
-public class UserService {
+public class UserService extends BaseService<User> {
     @Autowired
     private UserMapper userMapper;
 
