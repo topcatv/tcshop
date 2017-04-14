@@ -7,10 +7,10 @@ import org.springframework.boot.web.servlet.ServletComponentScan;
 
 @SpringBootApplication
 @ServletComponentScan
-@MapperScan("com.chebian.life.om.dao")
+@MapperScan(basePackages = "com.tcshop.mapper")
 public class ShopserviceApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(ShopserviceApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(ShopserviceApplication.class, args);
+    }
 }

@@ -11,6 +11,7 @@ import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreato
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import javax.servlet.Filter;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -58,6 +59,8 @@ public class ShiroConfiguration {
      * 加载shiroFilter权限控制规则（从数据库读取然后配置）
      */
     private void loadShiroFilterChain(ShiroFilterFactoryBean shiroFilterFactoryBean){
+        Map<String, Filter> filters = shiroFilterFactoryBean.getFilters();
+        filters.put("authc", new CaptchaFormAuthenticationFilter());
         /////////////////////// 下面这些规则配置最好配置到配置文件中 ///////////////////////
         Map<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
         // authc：该过滤器下的页面必须验证后才能访问，它是Shiro内置的一个拦截器org.apache.shiro.web.filter.authc.FormAuthenticationFilter
@@ -66,7 +69,8 @@ public class ShiroConfiguration {
         logger.info("##################从数据库读取权限规则，加载到shiroFilter中##################");
         filterChainDefinitionMap.put("/user/edit/**", "authc,perms[user:edit]");// 这里为了测试，固定写死的值，也可以从数据库或其他配置中读取
 
-        filterChainDefinitionMap.put("/login", "anon");
+        filterChainDefinitionMap.put("/login", "authc");
+        filterChainDefinitionMap.put("/logout", "logout");
         filterChainDefinitionMap.put("/**", "anon");//anon 可以理解为不拦截
 
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
