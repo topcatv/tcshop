@@ -7,6 +7,7 @@
     -->
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="login_name" jdbcType="VARCHAR" property="loginName" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
     <result column="password" jdbcType="VARCHAR" property="password" />
     <result column="salt" jdbcType="VARCHAR" property="salt" />
     <result column="register_date" jdbcType="TIMESTAMP" property="registerDate" />

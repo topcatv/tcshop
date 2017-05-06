@@ -1,12 +1,18 @@
 package com.tcshop.entity;
 
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.util.Date;
-import javax.persistence.*;
 
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    @Column(name = "user_name")
+    private String userName;
 
     @Column(name = "login_name")
     private String loginName;
@@ -86,5 +92,13 @@ public class User {
      */
     public void setRegisterDate(Date registerDate) {
         this.registerDate = registerDate;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 }
