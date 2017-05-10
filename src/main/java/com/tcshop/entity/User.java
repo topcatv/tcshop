@@ -1,10 +1,7 @@
 package com.tcshop.entity;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import java.util.Date;
+import javax.persistence.*;
 
 public class User {
     @Id
@@ -17,12 +14,15 @@ public class User {
     @Column(name = "login_name")
     private String loginName;
 
+    @Column(name = "register_date")
+    private Date registerDate;
+
+    @Column(name = "last_login_time")
+    private Date lastLoginTime;
+
     private String password;
 
     private String salt;
-
-    @Column(name = "register_date")
-    private Date registerDate;
 
     /**
      * @return id
@@ -39,6 +39,20 @@ public class User {
     }
 
     /**
+     * @return user_name
+     */
+    public String getUserName() {
+        return userName;
+    }
+
+    /**
+     * @param userName
+     */
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    /**
      * @return login_name
      */
     public String getLoginName() {
@@ -50,6 +64,34 @@ public class User {
      */
     public void setLoginName(String loginName) {
         this.loginName = loginName;
+    }
+
+    /**
+     * @return register_date
+     */
+    public Date getRegisterDate() {
+        return registerDate;
+    }
+
+    /**
+     * @param registerDate
+     */
+    public void setRegisterDate(Date registerDate) {
+        this.registerDate = registerDate;
+    }
+
+    /**
+     * @return last_login_time
+     */
+    public Date getLastLoginTime() {
+        return lastLoginTime;
+    }
+
+    /**
+     * @param lastLoginTime
+     */
+    public void setLastLoginTime(Date lastLoginTime) {
+        this.lastLoginTime = lastLoginTime;
     }
 
     /**
@@ -78,27 +120,5 @@ public class User {
      */
     public void setSalt(String salt) {
         this.salt = salt;
-    }
-
-    /**
-     * @return register_date
-     */
-    public Date getRegisterDate() {
-        return registerDate;
-    }
-
-    /**
-     * @param registerDate
-     */
-    public void setRegisterDate(Date registerDate) {
-        this.registerDate = registerDate;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
     }
 }

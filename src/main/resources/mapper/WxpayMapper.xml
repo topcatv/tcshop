@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tcshop.mapper.WxpayMapper" >
+  <resultMap id="BaseResultMap" type="com.tcshop.entity.Wxpay" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <id column="shop_config_id" property="shopConfigId" jdbcType="INTEGER" />
+    <result column="type" property="type" jdbcType="CHAR" />
+    <result column="appid" property="appid" jdbcType="VARCHAR" />
+    <result column="callback_url" property="callbackUrl" jdbcType="VARCHAR" />
+    <result column="apikey" property="apikey" jdbcType="VARCHAR" />
+    <result column="vendor_id" property="vendorId" jdbcType="VARCHAR" />
+    <result column="vendor_cert" property="vendorCert" jdbcType="VARCHAR" />
+  </resultMap>
+</mapper>
