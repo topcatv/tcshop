@@ -13,7 +13,7 @@ public class UserService extends BaseService<User> {
     @Autowired
     private UserMapper userMapper;
 
-    public User findByLoginName(String loginName){
+    public User findByLoginName(String loginName) {
         User u = new User();
         u.setLoginName(loginName);
         return userMapper.selectOne(u);
