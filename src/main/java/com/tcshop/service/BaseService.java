@@ -25,6 +25,10 @@ public abstract class BaseService<T> {
         return mapper.deleteByPrimaryKey(entity);
     }
 
+    public T get(T entity) {
+        return mapper.selectByPrimaryKey(entity);
+    }
+
     /**
      * 单表分页查询
      *

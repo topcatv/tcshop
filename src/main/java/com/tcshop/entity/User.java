@@ -1,5 +1,7 @@
 package com.tcshop.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 import javax.persistence.*;
 
@@ -69,6 +71,7 @@ public class User {
     /**
      * @return register_date
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "CET")
     public Date getRegisterDate() {
         return registerDate;
     }
@@ -83,6 +86,7 @@ public class User {
     /**
      * @return last_login_time
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "CET")
     public Date getLastLoginTime() {
         return lastLoginTime;
     }

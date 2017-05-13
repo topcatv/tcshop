@@ -10,10 +10,7 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -21,9 +18,9 @@ import java.util.List;
  * Created by liuyi on 2017/3/31.
  */
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/user")
 @Api(description = "用户服务接口")
-public class UsersController {
+public class UserController {
     @Autowired
     private UserService userService;
 
@@ -32,8 +29,10 @@ public class UsersController {
             @ApiImplicitParam(name = "query", value = "查询对象", required = true, dataType = "QueryParams", paramType="body")
     })
     @RequestMapping(value = "", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public List<User> all(@RequestBody QueryParams query) {
-        return userService.selectPage(query.getPage(), query.getPageSize());
+    public ResultData query(@RequestBody QueryParams query) {
+        ResultData ok = ResultData.ok();
+        ok.setData(userService.selectPage(query.getPage(), query.getPageSize()));
+        return ok;
     }
 
     @ApiOperation(value = "添加或更新一个用户", consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -50,6 +49,32 @@ public class UsersController {
             }
         }
         return ResultData.ok();
+    }
+
+    @ApiOperation(value = "删除一个用户")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id", value = "删除的用户id", required = true, dataType = "Integer", paramType="path")
+    })
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public ResultData remove(@PathVariable("id") Integer id){
+        User user = new User();
+        user.setId(id);
+        userService.delete(user);
+        return ResultData.ok();
+    }
+
+    @ApiOperation(value = "获取一个用户")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id", value = "用户id", required = true, dataType = "Integer", paramType="path")
+    })
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public ResultData fetch(@PathVariable("id") Integer id){
+        ResultData ok = ResultData.ok();
+
+        User user = new User();
+        user.setId(id);
+        ok.setData(userService.get(user));
+        return ok;
     }
 
 }
