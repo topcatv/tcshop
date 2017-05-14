@@ -61,6 +61,7 @@ public class ShiroConfiguration {
     private void loadShiroFilterChain(ShiroFilterFactoryBean shiroFilterFactoryBean){
         Map<String, Filter> filters = shiroFilterFactoryBean.getFilters();
         filters.put("authc", new CaptchaFormAuthenticationFilter());
+        filters.put("logout", new TcShopLogoutFilter());
         /////////////////////// 下面这些规则配置最好配置到配置文件中 ///////////////////////
         Map<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
         // authc：该过滤器下的页面必须验证后才能访问，它是Shiro内置的一个拦截器org.apache.shiro.web.filter.authc.FormAuthenticationFilter

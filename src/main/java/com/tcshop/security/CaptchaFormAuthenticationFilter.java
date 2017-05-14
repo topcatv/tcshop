@@ -9,6 +9,7 @@ import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
 import org.apache.shiro.web.util.WebUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
 import javax.servlet.ServletRequest;
@@ -188,6 +189,8 @@ public class CaptchaFormAuthenticationFilter extends FormAuthenticationFilter {
                 saveRequestAndRedirectToLogin(request, response);
             } else {
                 response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+                HttpServletResponse r = (HttpServletResponse) response;
+                r.setStatus(HttpStatus.UNAUTHORIZED.value());
                 response.setCharacterEncoding("UTF-8");
                 PrintWriter out = response.getWriter();
                 out.println("{\"success\":true,\"message\":\"login\"}");
