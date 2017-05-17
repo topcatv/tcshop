@@ -1,6 +1,5 @@
 package com.tcshop.controller;
 
-import com.tcshop.controller.data.QueryParams;
 import com.tcshop.controller.data.ResultData;
 import com.tcshop.entity.User;
 import com.tcshop.service.UserService;
@@ -24,7 +23,7 @@ public class PublicController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value = "/user", method = RequestMethod.GET)
+    @RequestMapping(value = "/current_user", method = RequestMethod.GET)
     public ResultData currentUser() {
         ResultData ok = ResultData.ok();
         ok.setData(SecurityUtils.getSubject().getPrincipal());

@@ -1,6 +1,8 @@
 package com.tcshop.security;
 
+import com.tcshop.entity.User;
 import com.tcshop.security.exception.IncorrectCaptchaException;
+import com.tcshop.service.UserService;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.UsernamePasswordToken;
@@ -18,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Date;
 
 /**
  * Created by topcat on 2017/4/10.
@@ -28,7 +31,13 @@ public class CaptchaFormAuthenticationFilter extends FormAuthenticationFilter {
 
     private String captchaParam = DEFAULT_CAPTCHA_PARAM;
 
+    private UserService userService;
+
     private static final Logger log = LoggerFactory.getLogger(CaptchaFormAuthenticationFilter.class);
+
+    public CaptchaFormAuthenticationFilter(UserService userService) {
+        this.userService = userService;
+    }
 
     public String getCaptchaParam() {
         return captchaParam;
@@ -108,9 +117,10 @@ public class CaptchaFormAuthenticationFilter extends FormAuthenticationFilter {
     protected boolean onLoginSuccess(AuthenticationToken token,
                                      Subject subject, ServletRequest request, ServletResponse response)
             throws Exception {
-        HttpServletRequest httpServletRequest = (HttpServletRequest) request;
         HttpServletResponse httpServletResponse = (HttpServletResponse) response;
         httpServletResponse.setContentType(MediaType.APPLICATION_JSON_VALUE);
+
+        recordLastLoginTime((User) subject.getPrincipal());
 
         if (!isAjaxRequest((HttpServletRequest) request)) {// 不是ajax请求
             issueSuccessRedirect(request, response);
@@ -122,6 +132,11 @@ public class CaptchaFormAuthenticationFilter extends FormAuthenticationFilter {
             out.close();
         }
         return false;
+    }
+
+    private void recordLastLoginTime(User user) {
+        user.setLastLoginTime(new Date());
+        userService.update(user.getId(), user);
     }
 
     /**

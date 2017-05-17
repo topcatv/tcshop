@@ -2,8 +2,11 @@ package com.tcshop.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.util.Date;
-import javax.persistence.*;
 
 public class User {
     @Id
@@ -71,7 +74,7 @@ public class User {
     /**
      * @return register_date
      */
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "CET")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     public Date getRegisterDate() {
         return registerDate;
     }
@@ -86,7 +89,7 @@ public class User {
     /**
      * @return last_login_time
      */
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "CET")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     public Date getLastLoginTime() {
         return lastLoginTime;
     }

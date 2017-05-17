@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 public class UserService extends BaseService<User> {
+    @SuppressWarnings("SpringJavaAutowiringInspection")
     @Autowired
     private UserMapper userMapper;
 
@@ -49,5 +50,10 @@ public class UserService extends BaseService<User> {
 
         System.out.println(hashedPasswordBase64);
         System.out.println(salt);
+    }
+
+    public void update(Integer id, User user) {
+        user.setId(id);
+        userMapper.updateByPrimaryKeySelective(user);
     }
 }

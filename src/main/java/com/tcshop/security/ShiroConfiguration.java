@@ -1,5 +1,6 @@
 package com.tcshop.security;
 
+import com.tcshop.service.UserService;
 import org.apache.shiro.cache.ehcache.EhCacheManager;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
@@ -58,9 +59,9 @@ public class ShiroConfiguration {
     /**
      * 加载shiroFilter权限控制规则（从数据库读取然后配置）
      */
-    private void loadShiroFilterChain(ShiroFilterFactoryBean shiroFilterFactoryBean){
+    private void loadShiroFilterChain(ShiroFilterFactoryBean shiroFilterFactoryBean, UserService userService){
         Map<String, Filter> filters = shiroFilterFactoryBean.getFilters();
-        filters.put("authc", new CaptchaFormAuthenticationFilter());
+        filters.put("authc", new CaptchaFormAuthenticationFilter(userService));
         filters.put("logout", new TcShopLogoutFilter());
         /////////////////////// 下面这些规则配置最好配置到配置文件中 ///////////////////////
         Map<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
@@ -84,7 +85,7 @@ public class ShiroConfiguration {
      * @return
      */
     @Bean(name = "shiroFilter")
-    public ShiroFilterFactoryBean getShiroFilterFactoryBean(DefaultWebSecurityManager securityManager) {
+    public ShiroFilterFactoryBean getShiroFilterFactoryBean(DefaultWebSecurityManager securityManager, UserService userService) {
 
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
         // 必须设置 SecurityManager  
@@ -95,7 +96,7 @@ public class ShiroConfiguration {
         shiroFilterFactoryBean.setSuccessUrl("/user");
         shiroFilterFactoryBean.setUnauthorizedUrl("/403");
 
-        loadShiroFilterChain(shiroFilterFactoryBean);
+        loadShiroFilterChain(shiroFilterFactoryBean, userService);
         return shiroFilterFactoryBean;
     }
 
