@@ -16,7 +16,12 @@ import org.springframework.transaction.annotation.Transactional;
 public class RoleService extends BaseService<Role> {
 	public static final Logger logger = LoggerFactory.getLogger(RoleService.class);
 	
+	@SuppressWarnings("SpringJavaAutowiringInspection")
 	@Autowired
 	private RoleMapper roleMapper;
 
+	public void update(Integer id, Role role) {
+		role.setId(id);
+		roleMapper.updateByPrimaryKeySelective(role);
+	}
 }
