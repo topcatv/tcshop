@@ -26,9 +26,9 @@ public class ResultData extends HashMap {
         this.init(data, totalCount, status);
     }
 
-    private void init(Object data, Long totalCount, int status) {
+    private void init(Object data, Long total, int status) {
         this.setData(data);
-        this.setTotalCount(totalCount);
+        this.setTotal(total);
         this.setStatus(status);
     }
 
@@ -36,8 +36,8 @@ public class ResultData extends HashMap {
         this.put("data", data);
     }
 
-    public void setTotalCount(Long count) {
-        this.put("totalCount", count);
+    public void setTotal(Long total) {
+        this.put("total", total);
     }
 
     public void setStatus(int status) {

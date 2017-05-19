@@ -1,11 +1,10 @@
 package com.tcshop.service;
 
+import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.tcshop.util.BaseMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public abstract class BaseService<T> {
@@ -36,9 +35,8 @@ public abstract class BaseService<T> {
      * @param pageSize
      * @return
      */
-    public List<T> selectPage(int pageNum, int pageSize) {
-        PageHelper.startPage(pageNum, pageSize);
+    public Page<T> selectPage(int pageNum, int pageSize) {
         //Spring4支持泛型注入
-        return mapper.select(null);
+        return PageHelper.startPage(pageNum, pageSize).doSelectPage(()-> mapper.select(null));
     }
 }

@@ -1,5 +1,6 @@
 package com.tcshop.controller;
 
+import com.github.pagehelper.Page;
 import com.tcshop.controller.data.ResultData;
 import com.tcshop.entity.Role;
 import com.tcshop.service.RoleService;
@@ -31,13 +32,15 @@ public class RoleController {
     public ResultData query(@RequestParam(defaultValue = "1") int page,
                             @RequestParam(defaultValue = "15") int pageSize) {
         ResultData ok = ResultData.ok();
-        ok.setData(roleService.selectPage(page, pageSize));
+        Page<Role> data = roleService.selectPage(page, pageSize);
+        ok.setData(data);
+        ok.setTotal(data.getTotal());
         return ok;
     }
 
     @ApiOperation(value = "添加或更新一个role", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "user", value = "添加的role", required = true, dataType = "Role", paramType="body")
+            @ApiImplicitParam(name = "role", value = "添加的role", required = true, dataType = "Role", paramType="body")
     })
     @RequestMapping(value = "/add", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResultData save(@RequestBody Role role){
@@ -47,7 +50,8 @@ public class RoleController {
 
     @ApiOperation(value = "更新一个role", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "user", value = "更新的role", required = true, dataType = "User", paramType = "body")
+            @ApiImplicitParam(name = "id", value = "更新的role的id", required = true, dataType = "Integer", paramType = "path"),
+            @ApiImplicitParam(name = "role", value = "更新的role", required = true, dataType = "Role", paramType = "body")
     })
     @RequestMapping(value = "/{id}", method = RequestMethod.PATCH, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResultData update(@PathVariable("id") Integer id, @RequestBody Role role) {

@@ -19,4 +19,8 @@ public class PermissionService extends BaseService<Permission> {
 	@Autowired
 	private PermissionMapper permissionMapper;
 
+	public void update(Integer id, Permission permission) {
+		permission.setId(id);
+		permissionMapper.updateByPrimaryKeySelective(permission);
+	}
 }
