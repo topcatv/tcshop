@@ -19,4 +19,8 @@ public class RefundService extends BaseService<Refund> {
 	@Autowired
 	private RefundMapper refundMapper;
 
+	public void update(Integer id, Refund refund) {
+		refund.setId(id);
+		refundMapper.updateByPrimaryKeySelective(refund);
+	}
 }

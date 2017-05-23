@@ -19,4 +19,8 @@ public class RefundLogService extends BaseService<RefundLog> {
 	@Autowired
 	private RefundLogMapper refundLogMapper;
 
+	public void update(Integer id, RefundLog refundLog) {
+		refundLog.setId(id);
+		refundLogMapper.updateByPrimaryKeySelective(refundLog);
+	}
 }

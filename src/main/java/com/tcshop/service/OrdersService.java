@@ -19,4 +19,8 @@ public class OrdersService extends BaseService<Orders> {
 	@Autowired
 	private OrdersMapper ordersMapper;
 
+	public void update(Integer id, Orders orders) {
+		orders.setId(id);
+		ordersMapper.updateByPrimaryKeySelective(orders);
+	}
 }

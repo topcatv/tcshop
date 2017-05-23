@@ -19,4 +19,8 @@ public class ShopAccountService extends BaseService<ShopAccount> {
 	@Autowired
 	private ShopAccountMapper shopAccountMapper;
 
+	public void update(Integer id, ShopAccount shopAccount) {
+		shopAccount.setId(id);
+		shopAccountMapper.updateByPrimaryKeySelective(shopAccount);
+	}
 }

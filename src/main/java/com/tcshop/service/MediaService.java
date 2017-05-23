@@ -19,4 +19,8 @@ public class MediaService extends BaseService<Media> {
 	@Autowired
 	private MediaMapper mediaMapper;
 
+	public void update(Integer id, Media media) {
+		media.setId(id);
+		mediaMapper.updateByPrimaryKeySelective(media);
+	}
 }

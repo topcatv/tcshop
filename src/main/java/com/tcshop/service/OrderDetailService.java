@@ -19,4 +19,8 @@ public class OrderDetailService extends BaseService<OrderDetail> {
 	@Autowired
 	private OrderDetailMapper orderDetailMapper;
 
+	public void update(Integer id, OrderDetail orderDetail) {
+		orderDetail.setId(id);
+		orderDetailMapper.updateByPrimaryKeySelective(orderDetail);
+	}
 }

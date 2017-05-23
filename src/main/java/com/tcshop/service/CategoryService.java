@@ -19,4 +19,8 @@ public class CategoryService extends BaseService<Category> {
 	@Autowired
 	private CategoryMapper categoryMapper;
 
+	public void update(Integer id, Category category) {
+		category.setId(id);
+		categoryMapper.updateByPrimaryKeySelective(category);
+	}
 }

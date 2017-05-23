@@ -2,7 +2,7 @@ package com.tcshop.controller;
 
 import com.tcshop.entity.Category;
 import com.tcshop.service.CategoryService;
-import com.tcshop.controller.data.QueryParams;
+import com.github.pagehelper.Page;
 import com.tcshop.controller.data.ResultData;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -20,40 +20,62 @@ public class CategoryController {
 
     @ApiOperation(value = "获取所有category列表", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "query", value = "查询对象", required = true, dataType = "QueryParams", paramType="body")
+            @ApiImplicitParam(name = "page", value = "页号", dataType = "int", paramType = "query"),
+            @ApiImplicitParam(name = "pageSize", value = "页大小", dataType = "Integer", paramType = "query"),
     })
-    @RequestMapping(value = "", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResultData query(@RequestBody QueryParams query) {
+    @RequestMapping(value = "", method = RequestMethod.GET)
+    public ResultData query(@RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "15") int pageSize) {
         ResultData ok = ResultData.ok();
-        ok.setData(categoryService.selectPage(query.getPage(), query.getPageSize()));
+        Page<Category> data = categoryService.selectPage(page, pageSize);
+        ok.setData(data);
+        ok.setTotal(data.getTotal());
         return ok;
     }
-
+    
     @ApiOperation(value = "添加或更新一个category", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "user", value = "添加或更新的category", required = true, dataType = "Category", paramType="body")
+            @ApiImplicitParam(name = "category", value = "添加的category", required = true, dataType = "Category", paramType="body")
     })
-    @RequestMapping(value = "/add", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResultData save(@RequestBody Category category){
-        if(category != null) {
-            if (null == category.getId()) {
-                categoryService.save(category);
-            } else {
-                categoryService.update(category);
-            }
-        }
-            return ResultData.ok();
-        }
-
+        categoryService.save(category);
+        return ResultData.ok();
+    }
+    
+    @ApiOperation(value = "更新一个category", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id", value = "更新的category的id", required = true, dataType = "Integer", paramType = "path"),
+            @ApiImplicitParam(name = "category", value = "更新的category", required = true, dataType = "Category", paramType = "body")
+    })
+    @RequestMapping(value = "/{id}", method = RequestMethod.PATCH, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResultData update(@PathVariable("id") Integer id, @RequestBody Category category) {
+        categoryService.update(id, category);
+        return ResultData.ok();
+    }
+    
     @ApiOperation(value = "删除一个category")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "删除的category id", required = true, dataType = "Integer", paramType="path")
     })
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResultData remove(@PathVariable("id") Integer id){
         Category category = new Category();
         category.setId(id);
         categoryService.delete(category);
         return ResultData.ok();
+    }
+    
+    @ApiOperation(value = "获取一个category")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id", value = "category id", required = true, dataType = "Integer", paramType = "path")
+    })
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public ResultData fetch(@PathVariable("id") Integer id) {
+        ResultData ok = ResultData.ok();
+
+        Category category = new Category();
+        category.setId(id);
+        ok.setData(categoryService.get(category));
+        return ok;
     }
 }

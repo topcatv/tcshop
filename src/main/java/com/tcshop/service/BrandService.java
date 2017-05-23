@@ -19,4 +19,8 @@ public class BrandService extends BaseService<Brand> {
 	@Autowired
 	private BrandMapper brandMapper;
 
+	public void update(Integer id, Brand brand) {
+		brand.setId(id);
+		brandMapper.updateByPrimaryKeySelective(brand);
+	}
 }

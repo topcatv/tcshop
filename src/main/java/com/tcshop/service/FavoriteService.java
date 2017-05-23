@@ -18,5 +18,4 @@ public class FavoriteService extends BaseService<Favorite> {
 	
 	@Autowired
 	private FavoriteMapper favoriteMapper;
-
 }

@@ -19,4 +19,8 @@ public class ProductService extends BaseService<Product> {
 	@Autowired
 	private ProductMapper productMapper;
 
+	public void update(Integer id, Product product) {
+		product.setId(id);
+		productMapper.updateByPrimaryKeySelective(product);
+	}
 }

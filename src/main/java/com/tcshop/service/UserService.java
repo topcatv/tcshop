@@ -1,22 +1,25 @@
 package com.tcshop.service;
 
-import com.tcshop.entity.User;
 import com.tcshop.mapper.UserMapper;
+import com.tcshop.entity.User;
 import org.apache.shiro.crypto.SecureRandomNumberGenerator;
 import org.apache.shiro.crypto.hash.Sha256Hash;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * Created by topcat on 2017/4/13.
+ * User服务对象实现类
  */
 @Service
 @Transactional
 public class UserService extends BaseService<User> {
-    @SuppressWarnings("SpringJavaAutowiringInspection")
-    @Autowired
-    private UserMapper userMapper;
+	public static final Logger logger = LoggerFactory.getLogger(UserService.class);
+	
+	@Autowired
+	private UserMapper userMapper;
 
     @Transactional(readOnly = true)
     public User findByLoginName(String loginName) {

@@ -19,4 +19,8 @@ public class JournalService extends BaseService<Journal> {
 	@Autowired
 	private JournalMapper journalMapper;
 
+	public void update(Integer id, Journal journal) {
+		journal.setId(id);
+		journalMapper.updateByPrimaryKeySelective(journal);
+	}
 }

@@ -19,4 +19,8 @@ public class CommentService extends BaseService<Comment> {
 	@Autowired
 	private CommentMapper commentMapper;
 
+	public void update(Integer id, Comment comment) {
+		comment.setId(id);
+		commentMapper.updateByPrimaryKeySelective(comment);
+	}
 }

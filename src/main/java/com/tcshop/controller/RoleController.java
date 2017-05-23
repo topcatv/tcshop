@@ -42,7 +42,7 @@ public class RoleController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "role", value = "添加的role", required = true, dataType = "Role", paramType="body")
     })
-    @RequestMapping(value = "/add", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResultData save(@RequestBody Role role){
             roleService.save(role);
             return ResultData.ok();

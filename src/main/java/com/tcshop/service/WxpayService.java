@@ -19,4 +19,8 @@ public class WxpayService extends BaseService<Wxpay> {
 	@Autowired
 	private WxpayMapper wxpayMapper;
 
+	public void update(Integer id, Wxpay wxpay) {
+		wxpay.setId(id);
+		wxpayMapper.updateByPrimaryKeySelective(wxpay);
+	}
 }

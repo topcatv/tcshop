@@ -18,5 +18,4 @@ public class UserPermissionService extends BaseService<UserPermission> {
 	
 	@Autowired
 	private UserPermissionMapper userPermissionMapper;
-
 }

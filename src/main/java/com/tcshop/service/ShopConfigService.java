@@ -19,4 +19,8 @@ public class ShopConfigService extends BaseService<ShopConfig> {
 	@Autowired
 	private ShopConfigMapper shopConfigMapper;
 
+	public void update(Integer id, ShopConfig shopConfig) {
+		shopConfig.setId(id);
+		shopConfigMapper.updateByPrimaryKeySelective(shopConfig);
+	}
 }

@@ -19,4 +19,8 @@ public class CustormerService extends BaseService<Custormer> {
 	@Autowired
 	private CustormerMapper custormerMapper;
 
+	public void update(Integer id, Custormer custormer) {
+		custormer.setId(id);
+		custormerMapper.updateByPrimaryKeySelective(custormer);
+	}
 }

@@ -19,4 +19,8 @@ public class CartService extends BaseService<Cart> {
 	@Autowired
 	private CartMapper cartMapper;
 
+	public void update(Integer id, Cart cart) {
+		cart.setId(id);
+		cartMapper.updateByPrimaryKeySelective(cart);
+	}
 }

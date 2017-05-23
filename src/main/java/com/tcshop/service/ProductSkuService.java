@@ -19,4 +19,8 @@ public class ProductSkuService extends BaseService<ProductSku> {
 	@Autowired
 	private ProductSkuMapper productSkuMapper;
 
+	public void update(Integer id, ProductSku productSku) {
+		productSku.setId(id);
+		productSkuMapper.updateByPrimaryKeySelective(productSku);
+	}
 }

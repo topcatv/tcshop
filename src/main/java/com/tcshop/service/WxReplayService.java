@@ -19,4 +19,8 @@ public class WxReplayService extends BaseService<WxReplay> {
 	@Autowired
 	private WxReplayMapper wxReplayMapper;
 
+	public void update(Integer id, WxReplay wxReplay) {
+		wxReplay.setId(id);
+		wxReplayMapper.updateByPrimaryKeySelective(wxReplay);
+	}
 }

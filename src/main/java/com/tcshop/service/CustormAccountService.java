@@ -19,4 +19,8 @@ public class CustormAccountService extends BaseService<CustormAccount> {
 	@Autowired
 	private CustormAccountMapper custormAccountMapper;
 
+	public void update(Integer id, CustormAccount custormAccount) {
+		custormAccount.setId(id);
+		custormAccountMapper.updateByPrimaryKeySelective(custormAccount);
+	}
 }

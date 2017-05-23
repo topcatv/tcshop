@@ -16,7 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 public class RoleService extends BaseService<Role> {
 	public static final Logger logger = LoggerFactory.getLogger(RoleService.class);
 	
-	@SuppressWarnings("SpringJavaAutowiringInspection")
 	@Autowired
 	private RoleMapper roleMapper;
 

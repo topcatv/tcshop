@@ -19,4 +19,8 @@ public class WxMenuService extends BaseService<WxMenu> {
 	@Autowired
 	private WxMenuMapper wxMenuMapper;
 
+	public void update(Integer id, WxMenu wxMenu) {
+		wxMenu.setId(id);
+		wxMenuMapper.updateByPrimaryKeySelective(wxMenu);
+	}
 }

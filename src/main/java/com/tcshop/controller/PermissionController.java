@@ -1,19 +1,15 @@
 package com.tcshop.controller;
 
-import com.tcshop.controller.data.ResultData;
 import com.tcshop.entity.Permission;
 import com.tcshop.service.PermissionService;
+import com.github.pagehelper.Page;
+import com.tcshop.controller.data.ResultData;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 @RestController
@@ -24,27 +20,28 @@ public class PermissionController {
 
     @ApiOperation(value = "获取所有permission列表", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "page", value = "页号", dataType = "Integer", paramType = "query"),
+            @ApiImplicitParam(name = "page", value = "页号", dataType = "int", paramType = "query"),
             @ApiImplicitParam(name = "pageSize", value = "页大小", dataType = "Integer", paramType = "query"),
     })
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public ResultData query(@RequestParam(defaultValue = "1") int page,
-                            @RequestParam(defaultValue = "15") int pageSize) {
+    public ResultData query(@RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "15") int pageSize) {
         ResultData ok = ResultData.ok();
-        ok.setData(permissionService.selectPage(page, pageSize));
+        Page<Permission> data = permissionService.selectPage(page, pageSize);
+        ok.setData(data);
+        ok.setTotal(data.getTotal());
         return ok;
     }
-
-    @ApiOperation(value = "添加一个permission", consumes = MediaType.APPLICATION_JSON_VALUE)
+    
+    @ApiOperation(value = "添加或更新一个permission", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiImplicitParams({
             @ApiImplicitParam(name = "permission", value = "添加的permission", required = true, dataType = "Permission", paramType="body")
     })
-    @RequestMapping(value = "/add", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResultData save(@RequestBody Permission permission){
         permissionService.save(permission);
         return ResultData.ok();
     }
-
+    
     @ApiOperation(value = "更新一个permission", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "更新的permission的id", required = true, dataType = "Integer", paramType = "path"),
@@ -55,7 +52,7 @@ public class PermissionController {
         permissionService.update(id, permission);
         return ResultData.ok();
     }
-
+    
     @ApiOperation(value = "删除一个permission")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "删除的permission id", required = true, dataType = "Integer", paramType="path")
@@ -67,7 +64,7 @@ public class PermissionController {
         permissionService.delete(permission);
         return ResultData.ok();
     }
-
+    
     @ApiOperation(value = "获取一个permission")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "permission id", required = true, dataType = "Integer", paramType = "path")
