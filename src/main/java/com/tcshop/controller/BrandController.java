@@ -32,7 +32,7 @@ public class BrandController {
         return ok;
     }
     
-    @ApiOperation(value = "添加或更新一个brand", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "添加一个brand", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiImplicitParams({
             @ApiImplicitParam(name = "brand", value = "添加的brand", required = true, dataType = "Brand", paramType="body")
     })

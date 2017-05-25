@@ -32,7 +32,7 @@ public class WxReplayController {
         return ok;
     }
     
-    @ApiOperation(value = "添加或更新一个wxReplay", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "添加一个wxReplay", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiImplicitParams({
             @ApiImplicitParam(name = "wxReplay", value = "添加的wxReplay", required = true, dataType = "WxReplay", paramType="body")
     })

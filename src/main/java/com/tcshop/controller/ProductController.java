@@ -32,7 +32,7 @@ public class ProductController {
         return ok;
     }
     
-    @ApiOperation(value = "添加或更新一个product", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "添加一个product", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiImplicitParams({
             @ApiImplicitParam(name = "product", value = "添加的product", required = true, dataType = "Product", paramType="body")
     })

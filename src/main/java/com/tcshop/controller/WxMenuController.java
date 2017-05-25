@@ -32,7 +32,7 @@ public class WxMenuController {
         return ok;
     }
     
-    @ApiOperation(value = "添加或更新一个wxMenu", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "添加一个wxMenu", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiImplicitParams({
             @ApiImplicitParam(name = "wxMenu", value = "添加的wxMenu", required = true, dataType = "WxMenu", paramType="body")
     })

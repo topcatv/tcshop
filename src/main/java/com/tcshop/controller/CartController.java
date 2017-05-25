@@ -32,7 +32,7 @@ public class CartController {
         return ok;
     }
     
-    @ApiOperation(value = "添加或更新一个cart", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "添加一个cart", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiImplicitParams({
             @ApiImplicitParam(name = "cart", value = "添加的cart", required = true, dataType = "Cart", paramType="body")
     })

@@ -32,7 +32,7 @@ public class ShopAccountController {
         return ok;
     }
     
-    @ApiOperation(value = "添加或更新一个shopAccount", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "添加一个shopAccount", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiImplicitParams({
             @ApiImplicitParam(name = "shopAccount", value = "添加的shopAccount", required = true, dataType = "ShopAccount", paramType="body")
     })

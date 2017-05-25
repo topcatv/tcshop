@@ -32,7 +32,7 @@ public class WxpayController {
         return ok;
     }
     
-    @ApiOperation(value = "添加或更新一个wxpay", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "添加一个wxpay", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiImplicitParams({
             @ApiImplicitParam(name = "wxpay", value = "添加的wxpay", required = true, dataType = "Wxpay", paramType="body")
     })

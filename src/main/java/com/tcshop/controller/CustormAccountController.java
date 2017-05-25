@@ -32,7 +32,7 @@ public class CustormAccountController {
         return ok;
     }
     
-    @ApiOperation(value = "添加或更新一个custormAccount", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "添加一个custormAccount", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiImplicitParams({
             @ApiImplicitParam(name = "custormAccount", value = "添加的custormAccount", required = true, dataType = "CustormAccount", paramType="body")
     })
