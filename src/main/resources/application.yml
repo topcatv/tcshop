@@ -46,5 +46,5 @@ pagehelper:
 logging:
   level:
     org.springframework: WARN
-    com.chebian.life.om: DEBUG
+    com.tcshop: DEBUG
 #debug: true
