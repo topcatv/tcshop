@@ -48,3 +48,8 @@ logging:
     org.springframework: WARN
     com.chebian.life.om: DEBUG
 #debug: true
+
+qiniu:
+  ak: kH4QDYiA_Drre1hC4G8lJJvbKLWMYf_z60E5omrP
+  sk: xPLmKHk11e5PkXY8y5Du3Vkon0Q-lEUgcgM9xblX
+  bucket: tcshop
