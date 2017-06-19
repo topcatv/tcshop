@@ -32,7 +32,7 @@ public class ShopConfigController {
         return ok;
     }
     
-    @ApiOperation(value = "添加或更新一个shopConfig", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "添加一个shopConfig", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiImplicitParams({
             @ApiImplicitParam(name = "shopConfig", value = "添加的shopConfig", required = true, dataType = "ShopConfig", paramType="body")
     })

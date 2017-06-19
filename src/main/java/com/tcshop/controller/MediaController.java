@@ -32,7 +32,7 @@ public class MediaController {
         return ok;
     }
     
-    @ApiOperation(value = "添加或更新一个media", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "添加一个media", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiImplicitParams({
             @ApiImplicitParam(name = "media", value = "添加的media", required = true, dataType = "Media", paramType="body")
     })

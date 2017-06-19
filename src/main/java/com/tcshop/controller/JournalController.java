@@ -32,7 +32,7 @@ public class JournalController {
         return ok;
     }
     
-    @ApiOperation(value = "添加或更新一个journal", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "添加一个journal", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiImplicitParams({
             @ApiImplicitParam(name = "journal", value = "添加的journal", required = true, dataType = "Journal", paramType="body")
     })

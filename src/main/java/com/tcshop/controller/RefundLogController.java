@@ -32,7 +32,7 @@ public class RefundLogController {
         return ok;
     }
     
-    @ApiOperation(value = "添加或更新一个refundLog", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "添加一个refundLog", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiImplicitParams({
             @ApiImplicitParam(name = "refundLog", value = "添加的refundLog", required = true, dataType = "RefundLog", paramType="body")
     })

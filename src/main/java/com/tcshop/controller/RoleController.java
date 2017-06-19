@@ -38,7 +38,7 @@ public class RoleController {
         return ok;
     }
 
-    @ApiOperation(value = "添加或更新一个role", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "添加一个role", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiImplicitParams({
             @ApiImplicitParam(name = "role", value = "添加的role", required = true, dataType = "Role", paramType="body")
     })

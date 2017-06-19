@@ -32,7 +32,7 @@ public class PermissionController {
         return ok;
     }
     
-    @ApiOperation(value = "添加或更新一个permission", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "添加一个permission", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiImplicitParams({
             @ApiImplicitParam(name = "permission", value = "添加的permission", required = true, dataType = "Permission", paramType="body")
     })

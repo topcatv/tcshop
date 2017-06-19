@@ -32,7 +32,7 @@ public class CommentController {
         return ok;
     }
     
-    @ApiOperation(value = "添加或更新一个comment", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "添加一个comment", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ApiImplicitParams({
             @ApiImplicitParam(name = "comment", value = "添加的comment", required = true, dataType = "Comment", paramType="body")
     })
