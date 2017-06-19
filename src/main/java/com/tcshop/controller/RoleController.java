@@ -9,12 +9,14 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import tk.mybatis.mapper.entity.Condition;
 
 
 @RestController
@@ -30,9 +32,13 @@ public class RoleController {
     })
     @RequestMapping(value = "", method = RequestMethod.GET)
     public ResultData query(@RequestParam(defaultValue = "1") int page,
-                            @RequestParam(defaultValue = "15") int pageSize) {
+                            @RequestParam(defaultValue = "15") int pageSize,
+                            String keywords) {
         ResultData ok = ResultData.ok();
-        Page<Role> data = roleService.selectPage(page, pageSize);
+        Condition condition = new Condition(Role.class);
+        if (!StringUtils.isEmpty(keywords))
+            condition.createCriteria().andCondition(String.format("NAME LIKE '%s'", keywords));
+        Page<Role> data = roleService.selectPageByExample(page, pageSize,condition);
         ok.setData(data);
         ok.setTotal(data.getTotal());
         return ok;

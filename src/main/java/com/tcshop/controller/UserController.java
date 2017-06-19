@@ -9,12 +9,14 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import tk.mybatis.mapper.entity.Condition;
 
 /**
  * Created by liuyi on 2017/3/31.
@@ -34,10 +36,15 @@ public class UserController {
     @RequestMapping(value = "", method = RequestMethod.GET)
     public ResultData query(@RequestParam(defaultValue = "1") int page,
                             @RequestParam(defaultValue = "15") int pageSize,
-                            String keywords,
-                            @RequestParam(value = "registerDate[]", required = false) String[] registerDate) {
+                            String name,
+                            @RequestParam(value = "createTime[]", required = false) String[] createTime) {
         ResultData ok = ResultData.ok();
-        ok.setData(userService.selectPage(page, pageSize));
+        Condition condition = new Condition(User.class);
+        if (!StringUtils.isEmpty(name))
+            condition.or().andCondition(String.format("LOGIN_NAME LIKE '%s'", name)).andCondition(String.format("USER_NAME LIKE '%%'", name));
+        if (createTime!=null&&createTime.length > 0)
+            condition.createCriteria().andCondition(String.format("REGISTER_DATE <= '%s' and REGISTER_DATE >= '%s'", createTime));
+        ok.setData(userService.selectPageByExample(page, pageSize, condition));
         return ok;
     }
 
