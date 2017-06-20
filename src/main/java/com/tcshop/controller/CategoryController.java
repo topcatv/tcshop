@@ -78,4 +78,11 @@ public class CategoryController {
         ok.setData(categoryService.get(category));
         return ok;
     }
+    @RequestMapping(value = "/tree", method = RequestMethod.GET)
+    public ResultData loadCategoryTree() {
+        ResultData ok = ResultData.ok();
+        ok.setData(categoryService.loadCategoryTree(null));
+        return ok;
+    }
+
 }
