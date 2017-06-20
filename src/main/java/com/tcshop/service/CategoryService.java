@@ -38,8 +38,7 @@ public class CategoryService extends BaseService<Category> {
 		}
 
 		condition.setOrderByClause("POSITION ASC");
-		categoryMapper.selectByExample(condition);
-		List<Category> list = new ArrayList<>();
+		List<Category> list = categoryMapper.selectByExample(condition);
 		List<CategoryTree> result = new ArrayList<>();
 		if (list != null && list.size() > 0) {
 			for(Category category:list){
@@ -47,7 +46,7 @@ public class CategoryService extends BaseService<Category> {
 				categoryTree.setLabel(category.getName());
 				categoryTree.setKey(category.getId());
 				categoryTree.setValue(category.getId());
-				List<CategoryTree> cList = loadCategoryTree(category.getParentId());
+				List<CategoryTree> cList = loadCategoryTree(category.getId());
 				if(cList!=null&&cList.size()>0){
 					categoryTree.setChildren(cList);
 				}
