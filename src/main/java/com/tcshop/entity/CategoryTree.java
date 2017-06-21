@@ -7,21 +7,21 @@ import java.util.List;
  */
 public class CategoryTree {
 
-    private Integer key;
+    private String key;
 
-    private Integer value;
+    private String value;
 
     private String label;
 
-    public Integer getKey() {
+    public String getKey() {
         return key;
     }
 
-    public Integer getValue() {
+    public String getValue() {
         return value;
     }
 
-    public void setValue(Integer value) {
+    public void setValue(String value) {
         this.value = value;
     }
 
@@ -41,7 +41,7 @@ public class CategoryTree {
         this.children = children;
     }
 
-    public void setKey(Integer key) {
+    public void setKey(String key) {
         this.key = key;
     }
 

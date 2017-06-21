@@ -19,41 +19,41 @@ import java.util.List;
 @Service
 @Transactional
 public class CategoryService extends BaseService<Category> {
-	public static final Logger logger = LoggerFactory.getLogger(CategoryService.class);
-	
-	@Autowired
-	private CategoryMapper categoryMapper;
+    public static final Logger logger = LoggerFactory.getLogger(CategoryService.class);
 
-	public void update(Integer id, Category category) {
-		category.setId(id);
-		categoryMapper.updateByPrimaryKeySelective(category);
-	}
+    @Autowired
+    private CategoryMapper categoryMapper;
 
-	public List<CategoryTree> loadCategoryTree(Integer rootId){
-		Condition condition = new Condition(Category.class);
-		if(rootId!=null){
-			condition.createCriteria().andEqualTo("parentId",rootId);
-		}else{
-			condition.createCriteria().andIsNull("parentId");
-		}
+    public void update(Integer id, Category category) {
+        category.setId(id);
+        categoryMapper.updateByPrimaryKeySelective(category);
+    }
 
-		condition.setOrderByClause("POSITION ASC");
-		List<Category> list = categoryMapper.selectByExample(condition);
-		List<CategoryTree> result = new ArrayList<>();
-		if (list != null && list.size() > 0) {
-			for(Category category:list){
-				CategoryTree categoryTree = new CategoryTree();
-				categoryTree.setLabel(category.getName());
-				categoryTree.setKey(category.getId());
-				categoryTree.setValue(category.getId());
-				List<CategoryTree> cList = loadCategoryTree(category.getId());
-				if(cList!=null&&cList.size()>0){
-					categoryTree.setChildren(cList);
-				}
-				result.add(categoryTree);
-			}
-			return result;
-		}
-		return null;
-	}
+    public List<CategoryTree> loadCategoryTree(Integer rootId) {
+        Condition condition = new Condition(Category.class);
+        if (rootId != null) {
+            condition.createCriteria().andEqualTo("parentId", rootId);
+        } else {
+            condition.createCriteria().andIsNull("parentId");
+        }
+
+        condition.setOrderByClause("POSITION ASC");
+        List<Category> list = categoryMapper.selectByExample(condition);
+        List<CategoryTree> result = new ArrayList<>();
+        if (list != null && list.size() > 0) {
+            for (Category category : list) {
+                CategoryTree categoryTree = new CategoryTree();
+                categoryTree.setLabel(category.getName());
+                categoryTree.setKey(String.valueOf(category.getId()));
+                categoryTree.setValue(String.valueOf(category.getId()));
+                List<CategoryTree> cList = loadCategoryTree(category.getId());
+                if (cList != null && cList.size() > 0) {
+                    categoryTree.setChildren(cList);
+                }
+                result.add(categoryTree);
+            }
+            return result;
+        }
+        return null;
+    }
 }
