@@ -33,7 +33,7 @@ public class RoleController {
     @RequestMapping(value = "", method = RequestMethod.GET)
     public ResultData query(@RequestParam(defaultValue = "1") int page,
                             @RequestParam(defaultValue = "15") int pageSize,
-                            String keywords) {
+                            @RequestParam(defaultValue = "") String keywords) {
         ResultData ok = ResultData.ok();
         Condition condition = new Condition(Role.class);
         if (!StringUtils.isEmpty(keywords))

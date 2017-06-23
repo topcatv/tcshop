@@ -7,9 +7,13 @@ import com.tcshop.controller.data.ResultData;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import org.apache.shiro.crypto.SecureRandomNumberGenerator;
+import org.apache.shiro.crypto.hash.Sha256Hash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
+import tk.mybatis.mapper.entity.Condition;
 
 
 @RestController
@@ -24,9 +28,13 @@ public class CustormerController {
             @ApiImplicitParam(name = "pageSize", value = "页大小", dataType = "Integer", paramType = "query"),
     })
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public ResultData query(@RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "15") int pageSize) {
+    public ResultData query(@RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "15") int pageSize,
+                            @RequestParam(defaultValue = "") String keywords) {
         ResultData ok = ResultData.ok();
-        Page<Custormer> data = custormerService.selectPage(page, pageSize);
+        Condition condition = new Condition(Custormer.class);
+        if (!StringUtils.isEmpty(keywords))
+            condition.createCriteria().andCondition(String.format("USER_NAME LIKE '%s'", keywords));
+        Page<Custormer> data = custormerService.selectPageByExample(page, pageSize,condition);
         ok.setData(data);
         ok.setTotal(data.getTotal());
         return ok;
@@ -38,8 +46,17 @@ public class CustormerController {
     })
     @RequestMapping(value = "", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResultData save(@RequestBody Custormer custormer){
+        String salt = generateSalt();
+        String hashedPasswordBase64 = new Sha256Hash(custormer.getPassword(), salt, 1024).toBase64();
+        custormer.setPassword(hashedPasswordBase64);
         custormerService.save(custormer);
         return ResultData.ok();
+    }
+
+    private String generateSalt(){
+        SecureRandomNumberGenerator secureRandom = new SecureRandomNumberGenerator();
+        String hex = secureRandom.nextBytes().toHex();
+        return hex;
     }
     
     @ApiOperation(value = "更新一个custormer", consumes = MediaType.APPLICATION_JSON_VALUE)

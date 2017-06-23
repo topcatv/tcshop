@@ -1,6 +1,7 @@
 package com.tcshop.controller;
 
 import com.tcshop.entity.Category;
+import com.tcshop.entity.Custormer;
 import com.tcshop.service.CategoryService;
 import com.github.pagehelper.Page;
 import com.tcshop.controller.data.ResultData;
@@ -9,7 +10,9 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
+import tk.mybatis.mapper.entity.Condition;
 
 
 @RestController
@@ -24,9 +27,13 @@ public class CategoryController {
             @ApiImplicitParam(name = "pageSize", value = "页大小", dataType = "Integer", paramType = "query"),
     })
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public ResultData query(@RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "15") int pageSize) {
+    public ResultData query(@RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "15") int pageSize,
+    @RequestParam(defaultValue = "") String keywords) {
         ResultData ok = ResultData.ok();
-        Page<Category> data = categoryService.selectPage(page, pageSize);
+        Condition condition = new Condition(Category.class);
+        if (!StringUtils.isEmpty(keywords))
+            condition.createCriteria().andCondition(String.format("NAME LIKE '%s'", keywords));
+        Page<Category> data = categoryService.selectPageByExample(page, pageSize,condition);
         ok.setData(data);
         ok.setTotal(data.getTotal());
         return ok;

@@ -19,23 +19,23 @@ import java.util.List;
 @Service
 @Transactional
 public class CategoryService extends BaseService<Category> {
-    public static final Logger logger = LoggerFactory.getLogger(CategoryService.class);
+	public static final Logger logger = LoggerFactory.getLogger(CategoryService.class);
+	
+	@Autowired
+	private CategoryMapper categoryMapper;
 
-    @Autowired
-    private CategoryMapper categoryMapper;
+	public void update(Integer id, Category category) {
+		category.setId(id);
+		categoryMapper.updateByPrimaryKeySelective(category);
+	}
 
-    public void update(Integer id, Category category) {
-        category.setId(id);
-        categoryMapper.updateByPrimaryKeySelective(category);
-    }
-
-    public List<CategoryTree> loadCategoryTree(Integer rootId) {
-        Condition condition = new Condition(Category.class);
-        if (rootId != null) {
-            condition.createCriteria().andEqualTo("parentId", rootId);
-        } else {
-            condition.createCriteria().andIsNull("parentId");
-        }
+	public List<CategoryTree> loadCategoryTree(Integer rootId){
+		Condition condition = new Condition(Category.class);
+		if(rootId!=null){
+			condition.createCriteria().andEqualTo("parentId",rootId);
+		}else{
+			condition.createCriteria().andIsNull("parentId");
+		}
 
         condition.setOrderByClause("POSITION ASC");
         List<Category> list = categoryMapper.selectByExample(condition);
