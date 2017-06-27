@@ -7,14 +7,13 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Id
     @Column(name = "brand_id")
     private Integer brandId;
 
     /**
      * 商品类型：
-1.实物商品
-2.虚拟商品
+     * 1.实物商品
+     * 2.虚拟商品
      */
     private String type;
 
@@ -70,12 +69,12 @@ public class Product {
 
     /**
      * 获取商品类型：
-1.实物商品
-2.虚拟商品
+     * 1.实物商品
+     * 2.虚拟商品
      *
      * @return type - 商品类型：
-1.实物商品
-2.虚拟商品
+     * 1.实物商品
+     * 2.虚拟商品
      */
     public String getType() {
         return type;
@@ -83,12 +82,12 @@ public class Product {
 
     /**
      * 设置商品类型：
-1.实物商品
-2.虚拟商品
+     * 1.实物商品
+     * 2.虚拟商品
      *
      * @param type 商品类型：
-1.实物商品
-2.虚拟商品
+     *             1.实物商品
+     *             2.虚拟商品
      */
     public void setType(String type) {
         this.type = type;
