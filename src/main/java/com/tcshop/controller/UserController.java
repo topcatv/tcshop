@@ -43,7 +43,7 @@ public class UserController {
         if (!StringUtils.isEmpty(name))
             condition.or().andCondition(String.format("LOGIN_NAME LIKE '%s'", name)).andCondition(String.format("USER_NAME LIKE '%%'", name));
         if (createTime!=null&&createTime.length > 0)
-            condition.createCriteria().andCondition(String.format("REGISTER_DATE <= '%s' and REGISTER_DATE >= '%s'", createTime));
+            condition.createCriteria().andCondition(String.format("REGISTER_DATE <= '%s' and REGISTER_DATE >= '%s'", createTime[0], createTime[1]));
         ok.setData(userService.selectPageByExample(page, pageSize, condition));
         return ok;
     }

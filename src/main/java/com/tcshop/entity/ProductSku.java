@@ -8,7 +8,6 @@ public class ProductSku {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Id
     @Column(name = "product_id")
     private Integer productId;
 

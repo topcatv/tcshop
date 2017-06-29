@@ -53,3 +53,11 @@ qiniu:
   ak: kH4QDYiA_Drre1hC4G8lJJvbKLWMYf_z60E5omrP
   sk: xPLmKHk11e5PkXY8y5Du3Vkon0Q-lEUgcgM9xblX
   bucket: tcshop
+
+wxDomain: ly.frp.chebian.vip
+wechat:
+  mp:
+    appId: wx8424f7150cdc1855
+    secret: 826bdbd715b92893ef6fb5a4c8cb0add
+    token: alibabachebian0000
+    aesKey:
