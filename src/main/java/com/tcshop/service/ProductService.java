@@ -38,7 +38,7 @@ public class ProductService extends BaseService<Product> {
 	}
 
 	public void save(Goods good) {
-		super.save(good);
+		mapper.insertSelective(good);
 		List<ProductSku> productSku = getSku(good);
 		productSkuService.save(productSku);
 	}

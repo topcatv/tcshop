@@ -53,14 +53,13 @@ public class PublicController {
         return ResultData.ok();
     }
 
-    @GetMapping("/qiniu/uptoken")
-    public ResultData qiniuUpToken(String ns){
+    @RequestMapping("/qiniu/uptoken")
+    public ResultData qiniuUpToken(){
         Auth auth = Auth.create(qnAk, qnSk);
-        String uploadKey = String.format("%s/%s", ns, StringUtils.replace(UUID.randomUUID().toString(), "-", ""));
-        String upToken = auth.uploadToken(bucket, uploadKey);
+        String upToken = auth.uploadToken(bucket);
         ResultData ok = ResultData.ok();
         ok.setData(upToken);
-        ok.put("uploadKey", uploadKey);
+        ok.put("uptoken", upToken);
         return ok;
     }
 }

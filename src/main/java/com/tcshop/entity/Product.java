@@ -39,6 +39,9 @@ public class Product {
 
     private String description;
 
+    @Column(name = "category_id")
+    private Integer categoryId;
+
     /**
      * @return id
      */
@@ -211,5 +214,13 @@ public class Product {
      */
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Integer getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(Integer categoryId) {
+        this.categoryId = categoryId;
     }
 }
